@@ -21,4 +21,13 @@ class AmazonExtension extends SimpleExtension
             'amazonbox' => [[$amazon, 'renderAmazonBox'], ['is_safe' => ['html'], 'needs_environment' => true]]
         ];
     }
+
+    public function registerTwigFilters()
+    {
+        $amazon = new Amazon($this->container);
+
+        return [
+            'amazonify' => [[$amazon, 'amazonify'], ['needs_environment' => true]],
+        ];
+    }
 }

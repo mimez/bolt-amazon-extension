@@ -194,4 +194,13 @@ class Amazon
         return $env->render('templates/helper/amazonbox.twig', $options);
     }
 
+    public function amazonify(\Twig_Environment $env, $string)
+    {
+
+        $string = new \Twig_Markup(preg_replace_callback('#amazonbox\((.*)\)#Ui', function($matches) use ($env) {
+            return $this->renderAmazonBox($env, $matches[1]);
+        }, $string), 'utf-8');
+
+        return $string;
+    }
 }
