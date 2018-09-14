@@ -13,7 +13,7 @@ class AmazonExtension extends SimpleExtension
      */
     protected function registerTwigFunctions()
     {
-        $amazon = new Amazon($this->container);
+        $amazon = new Amazon($this->container, $this->getConfig());
 
         return [
             'amazonsearch' => [[$amazon, 'getAmazonProductsByKeyword'], ['is_safe' => ['html']]],
@@ -24,7 +24,7 @@ class AmazonExtension extends SimpleExtension
 
     public function registerTwigFilters()
     {
-        $amazon = new Amazon($this->container);
+        $amazon = new Amazon($this->container, $this->getConfig());
 
         return [
             'amazonify' => [[$amazon, 'amazonify'], ['needs_environment' => true]],

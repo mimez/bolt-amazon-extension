@@ -21,6 +21,27 @@ class Amazon
     protected $amazonEndpoint;
 
     /**
+     * @var array
+     */
+    protected $config;
+
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param array $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * @return Application
      */
     public function getApp()
@@ -36,9 +57,10 @@ class Amazon
         $this->app = $app;
     }
 
-    public function __construct(Application $app)
+    public function __construct(Application $app, array $config)
     {
         $this->setApp($app);
+        $this->setConfig($config);
     }
 
     protected function getAmazonEndpoint() {
@@ -46,11 +68,10 @@ class Amazon
         if (!isset($this->amazonEndpoint)) {
             $conf = new GenericConfiguration();
             $conf
-                ->setCountry($this->getApp()['config']->get('general/amazon/country'))
-                ->setAccessKey($this->getApp()['config']->get('general/amazon/access_key'))
-                ->setSecretKey($this->getApp()['config']->get('general/amazon/secret'))
-                ->setAssociateTag($this->getApp()['config']->get('general/amazon/associate_tag'));
-
+                ->setCountry($this->getConfig()['country'])
+                ->setAccessKey($this->getConfig()['access_key'])
+                ->setSecretKey($this->getConfig()['secret'])
+                ->setAssociateTag($this->getConfig()['associate_tag']);
             $this->amazonEndpoint = new ApaiIO($conf);
         }
 
