@@ -124,10 +124,10 @@ class Amazon
         if (!($amazonProduct = $this->getAmazonResultsFromCache($asin))) {
             $conf = new GenericConfiguration();
             $conf
-                ->setCountry('de')
-                ->setAccessKey('AKIAJYGLXULKUUDGFOQA')
-                ->setSecretKey('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')
-                ->setAssociateTag('geldgeschenke-de-21');
+                ->setCountry($this->getConfig()['country'])
+                ->setAccessKey($this->getConfig()['access_key'])
+                ->setSecretKey($this->getConfig()['secret'])
+                ->setAssociateTag($this->getConfig()['associate_tag']);
 
             $apaiIO = new ApaiIO($conf);
             $search = new Lookup();
