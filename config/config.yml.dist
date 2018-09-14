@@ -1,0 +1,5 @@
+# amazon config
+country: de
+access_key: key
+secret: secret
+associate_tag: tag
